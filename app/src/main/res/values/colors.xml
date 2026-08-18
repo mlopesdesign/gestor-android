@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta ML Lopes -->
+    <color name="ml_amarelo">#F0A000</color>
+    <color name="ml_amarelo_escuro">#B87600</color>
+    <color name="ml_preto">#1F1F1F</color>
+    <color name="ml_branco">#FFFFFF</color>
+    <color name="ml_cinza_claro">#F5F5F5</color>
+    <color name="ml_cinza_escuro">#121212</color>
+
+    <!-- Prioridades -->
+    <color name="prioridade_alta">#D32F2F</color>
+    <color name="prioridade_normal">#1976D2</color>
+    <color name="prioridade_baixa">#388E3C</color>
+</resources>

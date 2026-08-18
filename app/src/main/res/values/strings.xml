@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Identidade do app -->
+    <string name="app_name">Gestor de Demandas</string>
+
+    <!-- Tela de Login -->
+    <string name="login_titulo">Entrar no Gestor</string>
+    <string name="login_subtitulo">Use suas credenciais do Gestor</string>
+    <string name="login_email">E-mail</string>
+    <string name="login_email_hint">seu@email.com</string>
+    <string name="login_senha">Senha</string>
+    <string name="login_botao">Entrar</string>
+    <string name="login_carregando">Autenticando…</string>
+    <string name="login_erro_generico">Não foi possível entrar. Tente novamente.</string>
+    <string name="login_erro_credenciais">E-mail ou senha incorretos.</string>
+    <string name="login_erro_rate_limit">Muitas tentativas. Aguarde 15 minutos.</string>
+    <string name="login_erro_campos">Preencha e-mail e senha.</string>
+    <string name="login_erro_rede">Sem conexão com a internet.</string>
+
+    <!-- Tela de Tarefas (Home) -->
+    <string name="tarefas_titulo">Tarefas</string>
+    <string name="tarefas_vazia">Nenhuma tarefa por aqui.</string>
+    <string name="tarefas_vazia_sutil">Crie uma tarefa com o botão +</string>
+    <string name="tarefas_acao_nova">Nova tarefa</string>
+    <string name="tarefas_filtro_todas">Todas</string>
+    <string name="tarefas_filtro_pendentes">Pendentes</string>
+    <string name="tarefas_filtro_concluidas">Concluídas</string>
+    <string name="tarefas_filtro_hoje">Hoje</string>
+    <string name="tarefas_acao_atualizar">Atualizar</string>
+    <string name="tarefas_acao_buscar">Buscar</string>
+    <string name="tarefas_busca_hint">Buscar por título</string>
+    <string name="tarefas_erro_carregar">Não foi possível carregar as tarefas.</string>
+
+    <!-- Tarefa - Detalhe -->
+    <string name="tarefa_detalhe_titulo">Detalhe da tarefa</string>
+    <string name="tarefa_detalhe_acao_concluir">Concluir</string>
+    <string name="tarefa_detalhe_acao_reabrir">Reabrir</string>
+    <string name="tarefa_detalhe_acao_editar">Editar</string>
+    <string name="tarefa_detalhe_acao_excluir">Excluir</string>
+    <string name="tarefa_detalhe_sem_descricao">Sem descrição.</string>
+    <string name="tarefa_detalhe_projeto">Projeto</string>
+    <string name="tarefa_detalhe_cliente">Cliente</string>
+    <string name="tarefa_detalhe_vencimento">Vencimento</string>
+    <string name="tarefa_detalhe_status">Status</string>
+    <string name="tarefa_detalhe_prioridade">Prioridade</string>
+    <string name="tarefa_detalhe_criada_em">Criada em</string>
+    <string name="tarefa_detalhe_atualizada_em">Atualizada em</string>
+    <string name="tarefa_detalhe_sem_vencimento">Sem vencimento</string>
+    <string name="tarefa_detalhe_sem_projeto">Sem projeto</string>
+    <string name="tarefa_detalhe_sem_cliente">Sem cliente</string>
+    <string name="tarefa_detalhe_confirmar_excluir">Excluir esta tarefa?</string>
+    <string name="tarefa_detalhe_excluir_mensagem">Esta ação não pode ser desfeita.</string>
+    <string name="acao_confirmar">Confirmar</string>
+    <string name="acao_cancelar">Cancelar</string>
+
+    <!-- Tarefa - Editar/Criar -->
+    <string name="tarefa_editar_titulo_nova">Nova tarefa</string>
+    <string name="tarefa_editar_titulo_editar">Editar tarefa</string>
+    <string name="tarefa_editar_campo_titulo">Título</string>
+    <string name="tarefa_editar_campo_descricao">Descrição</string>
+    <string name="tarefa_editar_campo_projeto">Projeto</string>
+    <string name="tarefa_editar_campo_cliente">Cliente</string>
+    <string name="tarefa_editar_campo_prioridade">Prioridade</string>
+    <string name="tarefa_editar_campo_status">Status</string>
+    <string name="tarefa_editar_campo_vencimento">Vencimento</string>
+    <string name="tarefa_editar_sem_projeto">Sem projeto</string>
+    <string name="tarefa_editar_sem_cliente">Sem cliente</string>
+    <string name="tarefa_editar_sem_vencimento">Sem vencimento</string>
+    <string name="tarefa_editar_salvar">Salvar</string>
+    <string name="tarefa_editar_erro_titulo">Informe um título.</string>
+    <string name="tarefa_editar_erro_salvar">Não foi possível salvar.</string>
+    <string name="tarefa_editar_sucesso">Tarefa salva.</string>
+
+    <!-- Status (tarefa) -->
+    <string name="status_pendente">Pendente</string>
+    <string name="status_em_andamento">Em andamento</string>
+    <string name="status_concluida">Concluída</string>
+    <string name="status_cancelada">Cancelada</string>
+    <string name="status_arquivada">Arquivada</string>
+
+    <!-- Prioridade -->
+    <string name="prioridade_baixa">Baixa</string>
+    <string name="prioridade_normal">Normal</string>
+    <string name="prioridade_alta">Alta</string>
+    <string name="prioridade_critica">Crítica</string>
+
+    <!-- Projetos -->
+    <string name="projetos_titulo">Projetos</string>
+    <string name="projetos_vazia">Nenhum projeto cadastrado.</string>
+    <string name="projetos_status_planejado">Planejado</string>
+    <string name="projetos_status_em_andamento">Em andamento</string>
+    <string name="projetos_status_concluido">Concluído</string>
+    <string name="projetos_status_cancelado">Cancelado</string>
+    <string name="projetos_erro_carregar">Não foi possível carregar os projetos.</string>
+
+    <!-- Clientes -->
+    <string name="clientes_titulo">Clientes</string>
+    <string name="clientes_vazia">Nenhum cliente cadastrado.</string>
+    <string name="clientes_busca_hint">Buscar cliente</string>
+    <string name="clientes_erro_carregar">Não foi possível carregar os clientes.</string>
+
+    <!-- Áreas -->
+    <string name="areas_titulo">Áreas</string>
+    <string name="areas_vazia">Nenhuma área cadastrada.</string>
+    <string name="areas_erro_carregar">Não foi possível carregar as áreas.</string>
+
+    <!-- Configurações -->
+    <string name="config_titulo">Configurações</string>
+    <string name="config_sobre">Sobre</string>
+    <string name="config_sobre_versao">Versão 0.1.0</string>
+    <string name="config_sobre_autor">ML Lopes Design</string>
+    <string name="config_api_titulo">API</string>
+    <string name="config_api_url">URL da API</string>
+    <string name="config_sincronizar">Sincronizar agora</string>
+    <string name="config_sincronizando">Sincronizando…</string>
+    <string name="config_sincronizado">Sincronização concluída.</string>
+    <string name="config_erro_sincronizar">Falha na sincronização.</string>
+    <string name="config_sair">Sair</string>
+    <string name="config_sair_confirmar">Encerrar a sessão?</string>
+    <string name="config_sair_mensagem">Você precisará logar novamente.</string>
+
+    <!-- Navegação inferior -->
+    <string name="nav_tarefas">Tarefas</string>
+    <string name="nav_projetos">Projetos</string>
+    <string name="nav_clientes">Clientes</string>
+    <string name="nav_areas">Áreas</string>
+    <string name="nav_config">Config</string>
+
+    <!-- Erros genéricos -->
+    <string name="erro_generico">Algo deu errado.</string>
+    <string name="erro_rede">Falha de rede.</string>
+    <string name="erro_servidor">Servidor indisponível.</string>
+    <string name="acao_tentar_novamente">Tentar novamente</string>
+
+    <!-- Loading -->
+    <string name="carregando">Carregando…</string>
+</resources>

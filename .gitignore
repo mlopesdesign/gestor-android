@@ -1,0 +1,35 @@
+# Gradle
+.gradle/
+build/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Build outputs
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Keystores (NUNCA versionar)
+*.jks
+*.keystore
+release.keystore
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.hprof
