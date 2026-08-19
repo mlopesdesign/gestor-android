@@ -1,186 +1,192 @@
-# MANUAL DO APP ANDROID — Gestor de Demandas v0.1.0
+# Manual do Usuário — Gestor de Demandas (Android v0.1.0)
 
-> Documento de uso do app Android `com.mlopes.gestor` para o Marcio e futuros usuarios.
-> Aplicavel a versao 0.1.0 gerada em 17/08/2026.
-
----
-
-## 1. O que e este app
-
-Aplicativo Android nativo do **Gestor Inteligente de Demandas**. Ele conversa com a **API REST** hospedada como plugin no WordPress em `tools.mlopesdesign.com.br`. O app nao conversa com o Gestor desktop — isso esta **bloqueado** ate liberacao do Marcio (vide `AGENTS.md` raiz §9.1).
-
-Funcionalidades desta versao:
-
-- Login com e-mail e senha (token salvo de forma criptografada)
-- Listagem de tarefas com filtros (Hoje, Pendentes, Concluidas, Todas)
-- Detalhe, edicao, criacao, conclusao e exclusao de tarefas
-- Listagem de projetos, clientes e areas
-- Sincronizacao manual via botao "Sincronizar agora" na aba Config
-- Fila offline — se a rede cair, mutations ficam pendentes e sobem quando voltar
-- Dark mode automatico conforme o sistema
+> App Android do **Gestor Inteligente de Demandas** — fala com o plugin WP via REST API.
+> Stack: Kotlin + Jetpack Compose + Material 3.
 
 ---
 
-## 2. Instalacao
+## 1. Instalação
 
-### 2.1 A partir do Android Studio
+### Opção A: Instalar pelo Android Studio (recomendado para dev)
 
-1. Abra o Android Studio Ladybug 2024.2+
-2. File → Open → selecione `E:\Projetos\LOPES FOCUS\android-app`
-3. Espere o Gradle sync (primeira vez demora)
-4. Selecione um device ou AVD
-5. Run ▶ (Shift+F10)
+1. Abra o **Android Studio** (Hedgehog 2023.1.1 ou mais recente).
+2. Vá em **File → Open** e selecione a pasta `E:\Projetos\LOPES FOCUS\android-app`.
+3. Aguarde o **Gradle sync** terminar (pode demorar 5–10 min na primeira vez).
+4. Crie/selecione um **emulador Pixel 8** (API 35 recomendado) em **Device Manager**.
+5. Clique **Run ▶** (Shift+F10).
+6. O app abre direto na tela de **Login**.
 
-### 2.2 Via APK debug pre-compilado
+### Opção B: Instalar o APK release (sem Android Studio)
 
-```powershell
-adb install -r app\build\outputs\apk\debug\app-debug.apk
+```bash
+adb install -r gestor-android-0.1.0.apk
 ```
 
-### 2.3 Requisitos do device
-
-- Android 8.0 (API 26) ou superior
-- Conexao HTTPS para `tools.mlopesdesign.com.br`
+O ícone **"Gestor de Demandas"** aparece na gaveta de apps.
 
 ---
 
-## 3. Login
+## 2. Configuração inicial
 
-1. Abre o app
-2. Tela **Entrar no Gestor** aparece
-3. Informe:
-   - **E-mail**: o mesmo cadastrado no plugin WP (`marcio@gestor.local` no seed)
-   - **Senha**: a senha definida no admin WP
-4. Toque **Entrar**
+O app precisa de **3 coisas** antes de funcionar:
 
-Em caso de erro:
+1. **Plugin WP `gestor-api` instalado e ativo** em `https://tools.mlopesdesign.com.br/wp-admin/`
+2. **Usuário criado** com email + senha (via menu lateral **Gestor API → Criar usuário**)
+3. **URL da API** configurada (default: `https://tools.mlopesdesign.com.br/wp-json/gestor/v1/`)
 
-| Mensagem | Causa |
-|---|---|
-| E-mail ou senha incorretos. | Credenciais invalidas |
-| Muitas tentativas. Aguarde 15 minutos. | Rate limit do servidor |
-| Sem conexao com a internet. | Sem rede no momento |
-
-O token expira em 30 dias. Apos isso, o app pede login de novo.
+Se a URL do seu WP for diferente, vá em **Configurações → URL da API** antes de logar.
 
 ---
 
-## 4. Tela Tarefas (Home)
+## 3. Telas
 
-A Home mostra tarefas com vencimento hoje, com prioridade mais alta em cima.
+### 3.1 Login
 
-- **Filtros no topo**: Hoje, Pendentes, Concluidas, Todas
-- **FAB +** no canto inferior direito: cria uma nova tarefa
-- Toque num card para abrir o detalhe
-- Icone de **check** no card: marca a tarefa como concluida (com confirmacao visual)
+- Informe **E-mail** e **Senha** (os mesmos do plugin WP).
+- Toque **Entrar**.
+- O app guarda o token localmente (criptografado com Tink).
+- Em caso de erro:
+  - **E-mail ou senha incorretos** → revise as credenciais
+  - **Muitas tentativas** → aguarde 15 minutos (rate limit 5 tentativas / 15 min por IP)
+  - **Sem conexão** → verifique sua internet
 
-Lista agrupada por prioridade (critica > alta > normal > baixa) e, dentro da mesma prioridade, pela data de vencimento.
+### 3.2 Tarefas (Home)
 
----
+Lista principal, mostra todas as tarefas do usuário.
 
-## 5. Tela Detalhe da Tarefa
+- **Filtros** (no topo): **Todas** | **Pendentes** | **Concluídas** | **Hoje**
+- **Buscar** (🔍): busca por título
+- **Atualizar** (↻): força pull de novas tarefas
+- **+ Nova tarefa** (canto inferior direito): abre formulário de criação
 
-Mostra: titulo, descricao, status, prioridade, vencimento, projeto, cliente, datas de criacao e atualizacao.
+Tocar numa tarefa abre o **Detalhe**.
 
-Botoes:
+### 3.3 Detalhe da Tarefa
 
-- **Concluir** (se nao concluida): muda status pra CONCLUIDA
-- **Reabrir** (se ja concluida): volta status pra PENDENTE
-- **Editar** (lapis): abre a tela de edicao
-- **Excluir** (lixeira): pede confirmacao e faz soft-delete
+Mostra todas as informações da tarefa:
 
-Os botoes de Editar e Excluir ficam no canto superior direito.
+- **Título** e **Descrição**
+- **Status** (Pendente / Em andamento / Concluída / Cancelada / Arquivada)
+- **Prioridade** (Baixa / Normal / Alta / Crítica)
+- **Projeto** (se vinculado)
+- **Cliente** (se vinculado)
+- **Vencimento** (se definido)
+- **Criada em** / **Atualizada em**
 
----
+Ações:
+- **Concluir** / **Reabrir** (alterna status)
+- **Editar** (abre formulário)
+- **Excluir** (com confirmação; soft-delete — pode ser restaurada)
 
-## 6. Tela Editar / Criar Tarefa
+### 3.4 Editar / Criar Tarefa
 
-Campos:
+Formulário com:
+- **Título** (obrigatório, máx 200 chars)
+- **Descrição** (opcional)
+- **Projeto** (dropdown, opcional)
+- **Cliente** (dropdown, opcional)
+- **Prioridade** (Baixa/Normal/Alta/Crítica)
+- **Status** (Pendente/Em andamento/Concluída/Cancelada/Arquivada)
+- **Vencimento** (date picker, opcional)
 
-| Campo | Obrigatorio | Observacao |
-|---|---|---|
-| Titulo | sim | — |
-| Descricao | nao | — |
-| Prioridade | nao (default NORMAL) | 4 chips: Baixa, Normal, Alta, Critica |
-| Projeto | nao | Dropdown com lista do servidor |
-| Cliente | nao | Dropdown com lista do servidor |
-| Vencimento | nao | ISO 8601 (string) |
+Toque **Salvar** pra criar/editar.
 
-Botao **Salvar** embaixo. Volta para a tela anterior ao salvar.
+### 3.5 Projetos
 
----
+Lista de projetos do usuário. Toque num projeto pra ver detalhes (em breve). Use **+** pra criar.
 
-## 7. Tela Projetos
+### 3.6 Clientes
 
-Lista de projetos cadastrados no plugin WP. Cada card mostra: nome, descricao, status. Atualize puxando pra baixo (pull-to-refresh sera adicionado em versao futura; por enquanto, va em Config → Sincronizar agora).
+Lista de clientes com **busca** no topo. Toque num cliente pra ver detalhes (em breve). Use **+** pra criar.
 
----
+### 3.7 Áreas
 
-## 8. Tela Clientes
+Lista de áreas (categorias). Use **+** pra criar.
 
-Lista de clientes com **busca** por nome no topo da tela. Mesmo padrao de atualizacao dos Projetos.
+### 3.8 Configurações
 
----
-
-## 9. Tela Areas
-
-Lista de areas com bolinha colorida representando a cor da area. Ordenado por ordem de exibicao e, depois, por nome.
-
----
-
-## 10. Tela Configuracoes (Config)
-
-Tres secoes:
-
-- **API**: exibe a URL base da API (somente leitura)
-- **Sobre**: versao 0.1.0, autor ML Lopes Design
-- **Sincronizar agora**: dispara sync completo (pull + push da fila offline)
-- **Sair**: encerra a sessao e volta pra tela de Login (com confirmacao)
-
----
-
-## 11. Modo offline
-
-O app le **sempre** do banco local (Room). A sincronizacao com o servidor acontece:
-
-1. Automaticamente, quando voce abre uma tela de listagem (em background)
-2. Manualmente, via Config → Sincronizar agora
-3. Quando a rede volta (via NetworkMonitor)
-
-Mutacoes feitas offline (criar / editar / concluir / excluir) vao pra fila `pending_ops` no Room. Quando a rede volta, sobem em batch via `POST /sync/push`.
-
-Conflitos de versao sao tratados pelo servidor (regra de `versao_base`). O app recebe a resposta com a lista de conflitos e exibe na aba Config (tela dedicada sera adicionada em v0.2.0).
+- **URL da API** — altera o endpoint do WP
+- **Sincronizar agora** — força pull + push
+- **Sair** — encerra a sessão (vai pra tela de Login)
 
 ---
 
-## 12. Privacidade e seguranca
+## 4. Sincronização
 
-- Token guardado em **EncryptedSharedPreferences** (AES-256-GCM)
-- Nenhum segredo no bundle — chave de IA (se houver) fica no servidor
-- `usesCleartextTraffic="false"` no manifest — so HTTPS
-- Backup automatico do Android esta **desativado** para o SharedPreferences seguro (`backup_rules.xml` + `data_extraction_rules.xml`)
+O app é **offline-first**: tudo o que você faz sem internet fica numa fila local e sobe quando voltar online.
 
----
+- **Pull** (servidor → app): baixa tarefas/projetos/clientes/áreas novos ou alterados desde a última sincronização
+- **Push** (app → servidor): envia mutations locais (criar/editar/excluir) que ainda não subiram
 
-## 13. Limitacoes desta versao (MVP)
+Indicador de status:
+- **Sincronizando** (com spinner)
+- **Sincronização concluída** (verde)
+- **Falha na sincronização** (vermelho — tente de novo quando tiver internet)
 
-- ❌ Sem upload de anexos / camera
-- ❌ Sem push notifications
-- ❌ Sem widget de home screen
-- ❌ Sincronizacao com o Gestor desktop **bloqueada** (vide AGENTS.md raiz §9.1)
-- ❌ Subir pra Play Store **bloqueado** ate Marcio decidir
+### Conflito de sync
 
----
-
-## 14. Onde pedir ajuda
-
-| Canal | Quando |
-|---|---|
-| `AGENTS.md` deste projeto | Duvida sobre stack, identidade, regras |
-| `docs/GUIA-API.md` | Duvida sobre endpoints do servidor |
-| `AGENTS.md` raiz do LOPES FOCUS | Duvida sobre o projeto-pai (Gestor desktop) |
+Se a mesma tarefa foi editada no app E no WP entre sincronizações, o servidor aplica **last-write-wins** (a versão mais recente vence) e registra o conflito em `wp_gestor_sync_conflitos` pra auditoria. **Nada é sobrescrito silenciosamente** — o conflito é sempre logado.
 
 ---
 
-*ML Lopes Design · Marcio · mlopesdesign@gmail.com · mlopesdesign.com.br · tools.mlopesdesign.com.br*
-*Versao 0.1.0 · 2026-08-17*
+## 5. Permissões
+
+- **Internet** — obrigatória pra sync
+- **Acesso ao estado da rede** — pra detectar offline/online e mostrar indicador
+
+Nenhuma permissão sensível (câmera, localização, contatos, etc).
+
+---
+
+## 6. Solução de problemas
+
+### "Sem conexão com a internet"
+- Verifique Wi-Fi / dados móveis
+- Tente **Sincronizar agora** em Configurações
+
+### "E-mail ou senha incorretos"
+- Verifique se está usando as credenciais **do plugin WP**, não as do WP admin
+- Abra o admin WP → menu lateral **Gestor API** → tabela **Usuários** → confirme email
+
+### "Muitas tentativas. Aguarde 15 minutos."
+- Rate limit: 5 tentativas / 15 min por IP
+- Aguarde 15 min ou peça pro admin resetar em **Gestor API → Revogar todos os tokens**
+
+### "Falha na sincronização"
+- Sem internet → conecte e tente de novo
+- URL da API errada → **Configurações → URL da API**
+- Token expirado (30 dias) → **Sair** e logar de novo
+
+### App abre e fecha sozinho
+- Reinstale: `adb uninstall com.mlopes.gestor` → `adb install gestor-android-0.1.0.apk`
+- Os dados locais (Room) serão perdidos, mas no servidor estão intactos
+
+---
+
+## 7. Atalhos de teclado (emulador)
+
+- **Tab** — próximo campo
+- **Enter** — submete formulário / abre item selecionado
+- **Esc** — fecha modal / volta
+
+---
+
+## 8. Próximas versões
+
+- **v0.2.0** — Anexos (foto, áudio) em tarefas
+- **v0.3.0** — Notificações push (FCM, custo zero até 10K users)
+- **v0.4.0** — Busca FTS4 no Room (busca local instantânea)
+- **v1.0.0** — Publicação na Play Store (certificado pago ~$25)
+
+---
+
+## 9. Suporte
+
+- **Plugin WP**: https://github.com/mlopesdesign/gestor-api/issues
+- **App Android**: https://github.com/mlopesdesign/gestor-android/issues
+- **Gestor desktop**: https://github.com/mlopesdesign/gestor-inteligente-de-demandas/issues
+- **Email**: mlopesdesign@gmail.com
+
+---
+
+*ML Lopes Design · Marcio · 2026-08-18 · v0.1.0 · Custo R$ 0,00*

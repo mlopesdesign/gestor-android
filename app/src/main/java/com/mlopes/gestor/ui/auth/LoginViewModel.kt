@@ -2,6 +2,7 @@ package com.mlopes.gestor.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mlopes.gestor.data.remote.TokenStorage
 import com.mlopes.gestor.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +23,12 @@ data class LoginUiState(
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
+    private val tokenStorage: TokenStorage,
 ) : ViewModel() {
-    private val _state = MutableStateFlow(LoginUiState())
+    private val _state = MutableStateFlow(
+        // Pre-preenche o email com o ultimo usado (UX: Marcio odeia redigitar).
+        LoginUiState(email = tokenStorage.buscarEmail().orEmpty())
+    )
     val state: StateFlow<LoginUiState> = _state.asStateFlow()
 
     fun onEmailChange(valor: String) = _state.update { it.copy(email = valor, erro = null) }
@@ -45,9 +50,15 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun mensagem(e: Throwable): String = when (e) {
-        is SecurityException -> e.message ?: "Erro de autenticacao."
-        is java.net.UnknownHostException, is java.io.IOException -> "Sem conexao com a internet."
-        else -> "Nao foi possivel entrar. Tente novamente."
+    private fun mensagem(e: Throwable): String {
+        // Mostra a mensagem real do servidor quando existir (facilita debug).
+        val real = e.message?.takeIf { it.isNotBlank() } ?: return "Nao foi possivel entrar. Tente novamente."
+        return when {
+            e is java.net.UnknownHostException -> "Sem conexao com a internet."
+            e is java.net.ConnectException -> "Nao foi possivel conectar ao servidor."
+            e is java.net.SocketTimeoutException -> "Tempo esgotado. Tente novamente."
+            e is java.io.IOException -> "Falha de rede. Verifique sua conexao."
+            else -> real
+        }
     }
 }

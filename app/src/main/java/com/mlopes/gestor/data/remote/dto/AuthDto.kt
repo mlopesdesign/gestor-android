@@ -8,7 +8,7 @@ data class LoginRequest(
     val senha: String,
     val dispositivoId: String,
     val sistema: String = "ANDROID",
-    val appVersao: String = "0.1.0",
+    val appVersao: String = "0.1.1",
 )
 
 @Serializable

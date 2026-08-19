@@ -14,6 +14,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonNamingStrategy
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -28,9 +29,12 @@ object NetworkModule {
     @Provides
     @Singleton
     fun json(): Json = Json {
+        // Servidor PHP retorna snake_case (`expira_em`, `criado_em`, etc).
+        // DTOs Kotlin estao em camelCase. Esta estrategia converte automaticamente.
         ignoreUnknownKeys = true
         explicitNulls = false
         coerceInputValues = true
+        namingStrategy = JsonNamingStrategy.SnakeCase
     }
 
     @Provides

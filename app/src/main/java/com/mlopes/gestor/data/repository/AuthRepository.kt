@@ -37,6 +37,8 @@ class AuthRepository @Inject constructor(
             throw IllegalStateException("Token nao retornado.")
         }
         tokenStorage.salvar(payload.token, Instant.parse(payload.expiraEm))
+        // Lembra o email pra pre-preencher na proxima abertura do app.
+        tokenStorage.salvarEmail(email)
     }
 
     suspend fun logout(): Result<Unit> = runCatching {

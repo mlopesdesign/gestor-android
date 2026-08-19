@@ -44,6 +44,16 @@ class TokenStorage @Inject constructor(
         return runCatching { Instant.parse(str).isBefore(Instant.now()) }.getOrDefault(true)
     }
 
+    /**
+     * Email do ultimo login. Persistido separado (criptografado) pra pre-preencher
+     * a tela de login. NAO eh um segredo critico (ja aparece no proprio form).
+     */
+    fun salvarEmail(email: String) {
+        prefs.edit().putString(KEY_EMAIL, email).apply()
+    }
+
+    fun buscarEmail(): String? = prefs.getString(KEY_EMAIL, null)
+
     fun limpar() {
         prefs.edit().clear().apply()
     }
@@ -51,5 +61,6 @@ class TokenStorage @Inject constructor(
     companion object {
         private const val KEY_TOKEN = "token"
         private const val KEY_EXP = "expira_em"
+        private const val KEY_EMAIL = "email"
     }
 }
