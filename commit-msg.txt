@@ -1,0 +1,14 @@
+v0.1.3 (versionCode=5): FIX sync bidirecional - 8 bugs do PULL
+
+Causa raiz: PULL do Android nao funcionava. WP retornava 3 mudancas mas UI nao renderizava. 8 bugs corrigidos.
+
+1. PULL endpoint errado: /tarefas (dump) em vez de /sync/pull (com cursor).
+2. DTO mismatch: criadaEm virou 'criada_em' (com a) mas WP retorna 'criado_em' (sem a).
+3. dispositivoId instavel: UUID.randomUUID() a cada abertura. AGORA persiste em SharedPreferences.
+4. Cursor nao persistido: Criado SyncCursorStorage (ultimo_pull_at por tabela).
+5. Wipe destrutivo: TarefaDao.substituir fazia DELETE+INSERT. AGORA UPSERT individual.
+6. LOOP INFINITO: .onEach { sincronizarUseCase() } disparava PULL em todo Room emit.
+7. FiltroTarefas.fillMaxSize: tomava todo espaco da Column, when block com altura 0.
+8. Payload camelCase no PUSH: WP esperava snake_case (projeto_id etc).
+
+Build OK. APK v0.1.3 instalado. WP validado (3 mudancas inseridas no Room).

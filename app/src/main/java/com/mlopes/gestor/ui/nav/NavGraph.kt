@@ -38,6 +38,7 @@ import com.mlopes.gestor.ui.tarefas.TarefasScreen
 @Composable
 fun GestorNavHost(
     authRepository: AuthRepository,
+    activity: androidx.fragment.app.FragmentActivity? = null,
     navController: NavHostController = rememberNavController(),
 ) {
     // `authRepository` ja vem injetado via MainViewModel; usamos a variavel
@@ -66,6 +67,7 @@ fun GestorNavHost(
                             popUpTo(Route.Login.path) { inclusive = true }
                         }
                     },
+                    activity = activity,
                 )
             }
             composable(Route.Home.path) {

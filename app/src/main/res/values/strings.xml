@@ -16,6 +16,8 @@
     <string name="login_erro_rate_limit">Muitas tentativas. Aguarde 15 minutos.</string>
     <string name="login_erro_campos">Preencha e-mail e senha.</string>
     <string name="login_erro_rede">Sem conexão com a internet.</string>
+    <string name="login_lembrar">Lembrar de mim</string>
+    <string name="login_botao_biometria">Entrar com digital</string>
 
     <!-- Tela de Tarefas (Home) -->
     <string name="tarefas_titulo">Tarefas</string>
@@ -107,7 +109,7 @@
     <!-- Configurações -->
     <string name="config_titulo">Configurações</string>
     <string name="config_sobre">Sobre</string>
-    <string name="config_sobre_versao">Versão 0.1.0</string>
+    <string name="config_sobre_versao">Versão 0.1.4</string>
     <string name="config_sobre_autor">ML Lopes Design</string>
     <string name="config_api_titulo">API</string>
     <string name="config_api_url">URL da API</string>
