@@ -172,9 +172,15 @@ private fun LinhaRotulo(rotulo: String, valor: String) {
 }
 
 private fun StatusTarefa.label(): String = when (this) {
-    StatusTarefa.PENDENTE -> "Pendente"
+    StatusTarefa.CAIXA_ENTRADA -> "Caixa de entrada"
+    StatusTarefa.PLANEJADA -> "Planejada"
     StatusTarefa.EM_ANDAMENTO -> "Em andamento"
+    StatusTarefa.AGUARDANDO_TERCEIRO -> "Aguardando terceiro"
+    StatusTarefa.BLOQUEADA -> "Bloqueada"
+    StatusTarefa.EM_REVISAO -> "Em revisao"
+    StatusTarefa.ENTREGUE_AGUARDANDO_CONFIRMACAO -> "Aguardando confirmacao"
     StatusTarefa.CONCLUIDA -> "Concluida"
+    StatusTarefa.ADIADA -> "Adiada"
     StatusTarefa.CANCELADA -> "Cancelada"
     StatusTarefa.ARQUIVADA -> "Arquivada"
 }

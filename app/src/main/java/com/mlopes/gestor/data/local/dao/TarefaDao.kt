@@ -37,7 +37,11 @@ interface TarefaDao {
 
     @Transaction
     suspend fun substituir(tarefas: List<TarefaEntity>) {
-        limpar()
-        inserirTodas(tarefas)
+        // FIX v0.1.3: NAO fazer wipe destrutivo. /sync/pull retorna apenas DELTAS
+        // desde o cursor; se apagarmos tudo a cada refresh, perderiamos dados offline
+        // que ainda nao tinham sido sincronizados (fila pending_ops). Agora: UPSERT
+        // por item (REPLACE strategy do inserir). Dados offline permanecem ate a
+        // pending_op subir.
+        for (t in tarefas) inserir(t)
     }
 }

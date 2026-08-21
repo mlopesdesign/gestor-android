@@ -16,8 +16,8 @@ data class Tarefa(
     val etiquetas: List<String>,
     val responsavel: String?,
     val concluidaEm: String?,
-    val criadaEm: String,
-    val atualizadaEm: String,
+    val criadoEm: String,
+    val atualizadoEm: String,
     val versao: Int,
     val pendenteSync: Boolean = false,
 )

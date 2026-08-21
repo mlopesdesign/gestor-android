@@ -12,7 +12,7 @@ data class TarefaInput(
     val projetoId: String? = null,
     val clienteId: String? = null,
     val prioridade: Prioridade = Prioridade.NORMAL,
-    val status: StatusTarefa = StatusTarefa.PENDENTE,
+    val status: StatusTarefa = StatusTarefa.PLANEJADA,
     val vencimentoEm: String? = null,
 )
 

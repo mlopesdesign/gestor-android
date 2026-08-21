@@ -7,6 +7,7 @@ import com.mlopes.gestor.domain.model.Tarefa
 import com.mlopes.gestor.domain.usecase.ConcluirTarefaUseCase
 import com.mlopes.gestor.domain.usecase.FiltroTarefa
 import com.mlopes.gestor.domain.usecase.ListarTarefasUseCase
+import com.mlopes.gestor.domain.usecase.SincronizarUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,6 +35,7 @@ class TarefasViewModel @Inject constructor(
     private val listarUseCase: ListarTarefasUseCase,
     private val concluirUseCase: ConcluirTarefaUseCase,
     private val tarefaRepository: TarefaRepository,
+    private val sincronizarUseCase: SincronizarUseCase,
 ) : ViewModel() {
     private val filtroFlow = MutableStateFlow(FiltroTarefa.HOJE)
 
@@ -44,7 +46,11 @@ class TarefasViewModel @Inject constructor(
     val state: StateFlow<TarefasUiState> = combine(tarefasFlow, filtroFlow) { tarefas, filtro ->
         TarefasUiState(carregando = false, tarefas = tarefas, filtro = filtro)
     }
-        .onEach { tarefaRepository.refresh() }
+        // FIX v0.1.3: NAO chamar sincronizarUseCase() aqui dentro. Causava LOOP INFINITO:
+        // Room emite -> state emite -> sincronizarUseCase() faz PULL -> INSERT (REPLACE) ->
+        // Room emite DE NOVO -> loop. O PULL ficava eternamente puxando desde 1970 e o
+        // cursor nunca era salvo. O refresh DEVE ser chamado so uma vez (LaunchedEffect
+        // da TarefasScreen ou botao de refresh manual).
         .catch { e -> emit(TarefasUiState(carregando = false, erro = e.message)) }
         .stateIn(
             scope = viewModelScope,
@@ -57,7 +63,7 @@ class TarefasViewModel @Inject constructor(
     }
 
     fun refresh() {
-        viewModelScope.launch { tarefaRepository.refresh() }
+        viewModelScope.launch { sincronizarUseCase() }
     }
 
     fun concluir(id: String) {

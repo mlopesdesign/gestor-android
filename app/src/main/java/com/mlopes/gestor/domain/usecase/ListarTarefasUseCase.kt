@@ -25,7 +25,7 @@ class ListarTarefasUseCase @Inject constructor(
 ) {
     operator fun invoke(filtro: FiltroTarefa = FiltroTarefa.HOJE): Flow<List<Tarefa>> {
         val status = when (filtro) {
-            FiltroTarefa.PENDENTES -> StatusTarefa.PENDENTE
+            FiltroTarefa.PENDENTES -> StatusTarefa.PLANEJADA
             FiltroTarefa.CONCLUIDAS -> StatusTarefa.CONCLUIDA
             else -> null
         }

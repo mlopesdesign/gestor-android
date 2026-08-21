@@ -14,7 +14,7 @@ data class PendingOpEntity(
     val operacao: String,
     val registroId: String,
     val payloadJson: String,
-    val criadaEm: String,
+    val criadoEm: String,
     val tentativas: Int = 0,
     val ultimoErro: String? = null,
 )

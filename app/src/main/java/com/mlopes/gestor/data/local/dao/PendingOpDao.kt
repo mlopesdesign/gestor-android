@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PendingOpDao {
-    @Query("SELECT * FROM pending_ops ORDER BY criadaEm ASC")
+    @Query("SELECT * FROM pending_ops ORDER BY criadoEm ASC")
     fun observar(): Flow<List<PendingOpEntity>>
 
-    @Query("SELECT * FROM pending_ops ORDER BY criadaEm ASC")
+    @Query("SELECT * FROM pending_ops ORDER BY criadoEm ASC")
     suspend fun listar(): List<PendingOpEntity>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)

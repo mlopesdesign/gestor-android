@@ -26,8 +26,8 @@ data class TarefaDto(
     val origem: String = "MANUAL",
     val concluidaEm: String? = null,
     val entregueEm: String? = null,
-    val criadaEm: String,
-    val atualizadaEm: String,
+    val criadoEm: String,
+    val atualizadoEm: String,
     val versao: Int,
     val deletadoEm: String? = null,
 )
@@ -64,8 +64,8 @@ fun TarefaDto.toEntity(): TarefaEntity = TarefaEntity(
     etiquetas = etiquetas.joinToString(","),
     responsavel = responsavel,
     concluidaEm = concluidaEm,
-    criadaEm = criadaEm,
-    atualizadaEm = atualizadaEm,
+    criadoEm = criadoEm,
+    atualizadoEm = atualizadoEm,
     versao = versao,
     pendenteSync = false,
 )
@@ -83,8 +83,8 @@ fun TarefaEntity.toDomain(): Tarefa = Tarefa(
     etiquetas = if (etiquetas.isBlank()) emptyList() else etiquetas.split(","),
     responsavel = responsavel,
     concluidaEm = concluidaEm,
-    criadaEm = criadaEm,
-    atualizadaEm = atualizadaEm,
+    criadoEm = criadoEm,
+    atualizadoEm = atualizadoEm,
     versao = versao,
     pendenteSync = pendenteSync,
 )
@@ -102,7 +102,7 @@ fun TarefaDto.toDomain(): Tarefa = Tarefa(
     etiquetas = etiquetas,
     responsavel = responsavel,
     concluidaEm = concluidaEm,
-    criadaEm = criadaEm,
-    atualizadaEm = atualizadaEm,
+    criadoEm = criadoEm,
+    atualizadoEm = atualizadoEm,
     versao = versao,
 )
