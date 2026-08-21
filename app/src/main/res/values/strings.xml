@@ -109,7 +109,7 @@
     <!-- Configurações -->
     <string name="config_titulo">Configurações</string>
     <string name="config_sobre">Sobre</string>
-    <string name="config_sobre_versao">Versão 0.1.5</string>
+    <string name="config_sobre_versao">Versão 0.1.6</string>
     <string name="config_sobre_autor">ML Lopes Design</string>
     <string name="config_api_titulo">API</string>
     <string name="config_api_url">URL da API</string>

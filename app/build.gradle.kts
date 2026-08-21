@@ -16,8 +16,8 @@ android {
         applicationId = "com.mlopes.gestor"
         minSdk = 26
         targetSdk = 35
-        versionCode = 7
-        versionName = "0.1.5"
+        versionCode = 8
+        versionName = "0.1.6"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField(
             "String",
@@ -112,6 +112,8 @@ dependencies {
     implementation(libs.coil.network)
     implementation(libs.security.crypto)
     implementation(libs.biometric)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.messaging)
     implementation(libs.datastore.preferences)
 
     debugImplementation(libs.compose.ui.tooling)
